@@ -1,0 +1,135 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+rm(list = ls())
+
+packs <- c('ggplot2', 'dplyr') 
+easypackages::libraries(packs)
+
+source('../../relatorio-ic/R/create.R')
+source('../../relatorio-ic/R/relatorio_fun.R')
+```
+
+```{r, fig.width=9.3, fig.height=5, fig.align='center'}
+qc5a <-
+  rio::import("../../jbc-ic/output/qc5a-summary-tavg-data-inmet-2008-2016-4yrs-south.rds") %>%
+  filter(!is.na(tot))
+
+#..............................................................................#
+
+qplot(
+  x = as.numeric(names(table(qc5a$tot))), #
+  y = as.numeric(table(qc5a$tot))) + #
+labs(
+  x = "Número de casos considerados suspeitos em cada EMA",
+  y = "Quantidade de EMAs com casos considerados suspeitos",
+    title = "Quantidade de EMAs com casos considerados suspeitos no Teste de Consistência Espacial 'a'",
+  subtitle = "(Regressão Espacial)") +
+labs(
+  title = "Quantidade de EMAs com casos considerados suspeitos no Teste de Consistência Espacial 'a'",
+  subtitle = "(Regressão Espacial)") +
+scale_x_continuous(
+  breaks = scales::pretty_breaks(n = as.numeric(names(table(qc5a$tot))) %>% max())) +
+scale_y_continuous(
+  breaks = scales::pretty_breaks(n = as.numeric(table(qc5a$tot)) %>% max())) +
+geom_line()
+
+
+#sum(as.numeric(table(qc5a$tot)))
+```
+
+
+
+```{#r, fig.width=9.3, fig.height=5, fig.align='center'}
+dir_p3 <- "../../jbc-ic/output/"
+
+p3_links <- paste0("../../jbc-ic/output/", create.list.names.product3(DIRECTORY = dir_p3))
+p3_links
+
+
+p3_links_sel <- c(p3_links[8], p3_links[9], p3_links[15])
+p3_links_sel
+```
+
+```{#r, fig.width=9.3, fig.height=5, fig.align='center'}
+#link <- "../../jbc-ic/output/qc5a-summary-tavg-data-inmet-2008-2016-4yrs-south.rds"
+#PRODUCT3 <- rio::import(link)
+
+plot.suspect.by.ema(DIR_PRODUCT3 = p3_links[4])
+
+plot.suspect.by.ema(DIR_PRODUCT3 = p3_links[8])
+plot.suspect.by.ema(DIR_PRODUCT3 = p3_links[9])
+
+plot.suspect.by.ema(DIR_PRODUCT3 = p3_links[15])
+
+
+plot_p3_sel <- list()
+for (i in seq_along(p3_links_sel)) {
+  plot_p3_sel[[i]] <- plot.suspect.by.ema(DIR_PRODUCT3 = p3_links_sel[i])
+  }
+
+plot_p3 <- list()
+for (i in seq_along(p3_links)) {
+  plot_p3[[i]] <- plot.suspect.by.ema(DIR_PRODUCT3 = p3_links[i])
+  }
+plot_p3
+```
+
+```{#r}
+plot.suspect.by.ema <- function(DIR_PRODUCT3) {
+  product3 <- rio::import(DIR_PRODUCT3);
+  #  qc_product <- product3 %>% dplyr::filter(!is.na(tot));
+  qc_product <- product3 %>% dplyr::mutate(tot = ifelse(is.na(tot), 0, tot));
+  if (unique(qc_product$n_obs) == 78912) {time_unit <- "horas"};
+  if (unique(qc_product$n_obs) == 3288) {time_unit <- "dias"};
+  psbe <-
+    ggplot2::qplot(
+      x = as.numeric(names(table(qc_product$tot))),
+      y = as.numeric(table(qc_product$tot))) +
+    ggplot2::labs(
+      x = paste0("Número de casos considerados suspeitos em cada EMA (em ", time_unit, ")"),
+      y = "Quantidade de EMAs com casos considerados suspeitos") +
+    ggplot2:labs(title = paste("Quantidade de EMAs com casos considerados suspeitos no teste ", qc))
+    ggplot2::scale_x_continuous(
+      breaks = scales::pretty_breaks(n = 10)) +
+    ggplot2::scale_y_continuous(
+      breaks = scales::pretty_breaks(n = 10))
+    #    ggplot2::scale_x_continuous(
+    #      breaks = scales::pretty_breaks(n = as.numeric(names(table(qc_product$tot))) %>% max())) +
+    #    ggplot2::scale_y_continuous(
+    #      breaks = scales::pretty_breaks(n = as.numeric(table(qc_product$tot)) %>% max())) +
+    #    ggplot2::geom_line()
+    return(psbe)
+}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
