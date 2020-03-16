@@ -2,8 +2,9 @@
 # DIR_SUMMARY = "/home/jonas/Documents/GITHUB/jbc-ic/data_saves/summary_80.rds"
 # SUMMARY <- readRDS(DIR_SUMMARY) %>% dplyr::select(site, state, name, lat, lon, alt)
 
-DIRECTORY = "../jbc-ic/output/"
-list.files(path = DIRECTORY)
+
+#DIRECTORY = "../jbc-ic/output/"
+#list.files(path = DIRECTORY)
 
 create.list.names.product3 <- function(DIRECTORY) {
   files_dir <- list.files(path = DIRECTORY);
@@ -13,7 +14,7 @@ create.list.names.product3 <- function(DIRECTORY) {
 }
 
 create.list.p3 <- function(DIRECTORY) {
-  list.names.product3(DIRECTORY);
+  files_p3 <- create.list.names.product3(DIRECTORY);
   CEL <- list();
   for (i in 1:length(files_p3)) {
     CEL[[i]] <- readRDS(paste0(DIRECTORY, files_p3[i])) }

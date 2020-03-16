@@ -57,8 +57,9 @@ text.suspect <- function(test_name, test_type, summary_link, product3_link) {
 
 plot.suspect.by.ema <- function(DIR_PRODUCT3) {
   product3 <- rio::import(DIR_PRODUCT3);
-  #  qc_product <- product3 %>% dplyr::filter(!is.na(tot));
-  qc_product <- product3 %>% dplyr::mutate(tot = ifelse(is.na(tot), 0, tot));
+  qc <- unique(product3$qc);
+  qc_product <- product3 %>% dplyr::filter(!is.na(tot));
+  #qc_product <- product3 %>% dplyr::mutate(tot = ifelse(is.na(tot), 0, tot));
   if (unique(qc_product$n_obs) == 78912) {time_unit <- "horas"};
   if (unique(qc_product$n_obs) == 3288) {time_unit <- "dias"};
   psbe <-
@@ -68,7 +69,7 @@ plot.suspect.by.ema <- function(DIR_PRODUCT3) {
     ggplot2::labs(
       x = paste0("Número de casos considerados suspeitos em cada EMA (em ", time_unit, ")"),
       y = "Quantidade de EMAs com casos considerados suspeitos") +
-    ggplot2:labs(title = paste("Quantidade de EMAs com casos considerados suspeitos no teste ", qc))
+    ggplot2::labs(title = paste("Quantidade de EMAs com casos considerados suspeitos no teste", qc)) +
     ggplot2::scale_x_continuous(
       breaks = scales::pretty_breaks(n = 10)) +
     ggplot2::scale_y_continuous(
@@ -81,7 +82,7 @@ plot.suspect.by.ema <- function(DIR_PRODUCT3) {
     return(psbe)
 }
 
-
+#DIR_PRODUCT3 = "../jbc-ic/output/qc5a-summary-tavg-data-inmet-2008-2016-4yrs-south.rds"
 
 
 

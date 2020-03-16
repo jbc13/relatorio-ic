@@ -31,6 +31,7 @@ rm(packs)
 source('../../jbc-ic/R/gg_bubble.R')
 source('../../relatorio-ic/R/create.R')
 source('../../relatorio-ic/R/grama_psph.R')
+source('../../relatorio-ic/R/relatorio_fun.R')
 
 # Limites
 estados <- rio::import("../../jbc-ic/data_saves/south_states.rds")
@@ -82,7 +83,7 @@ bysite
 # Help "grama.phps.create()"
 
 ```{r help}
-grama.phps.create(HELP = T)
+#grama.phps.create(HELP = T)
 ```
 
 # Figura 01

@@ -748,7 +748,7 @@ t14
 #result.text(QRT_DF = t03, TYPE = "hour", TESTE = "Persistência Temporal", LETRA = "a", NUMERO_TABELA = "04")
 ```
 
-__Figura 17__ – Distribuição espacial das EMAs com dados considerados suspeitos no teste QC6a.
+__Figura 17__ – Distribuição espacial das EMAs com dados considerados suspeitos no teste QC5a.
 
 ![](../images/img_qc5a.png)
 
@@ -757,7 +757,7 @@ __Figura 17__ – Distribuição espacial das EMAs com dados considerados suspei
 ### <font size="3"> __3.7.1 Dados considerados suspeitos por EMA__
 
 <font size="2">
-__Tabela 15__ – Total absoluto de dados considerados suspeitos em cada EMA.
+__Tabela 16__ – Total absoluto de dados considerados suspeitos em cada EMA.
 
 ```{r, echo=FALSE}
 suspect.by.site(DIRECTORY = directory, SUMMARY = emas_sel, TABLE = TRUE)
@@ -777,7 +777,7 @@ __Figura 17__ – Distribuição espacial das EMAs com maior quantidade absoluta
 ### <font size="3"> __3.7.2 Dados considerados suspeitos por QC__
 
 <font size="2">
-__Tabela 16__ – Total absoluto de dados considerados suspeitos em cada teste.
+__Tabela 17__ – Total absoluto de dados considerados suspeitos em cada teste.
 
 ```{r, echo=FALSE}
 sbqc <- suspect.by.qc(DIRECTORY = directory, TABLE = TRUE)
@@ -796,7 +796,7 @@ df %>% filter(tipo == 'd') %>% arrange(desc(Suspeitos))
 ### <font size="3"> __3.7.3 Dados considerados suspeitos por estado__
 
 <font size="2">
-__Tabela 17__ – Total absoluto de dados horários e diários considerados suspeitos por estado
+__Tabela 18__ – Total absoluto de dados horários e diários considerados suspeitos por estado
 
 ```{r, echo=FALSE}
 sbs <- suspect.by.site(DIRECTORY = directory, SUMMARY = emas_sel)
